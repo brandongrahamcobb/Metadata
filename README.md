@@ -47,11 +47,10 @@ This package provides a set of classes and interfaces to manage, store, and inte
   <version>1.0.0</version>
 </dependency>
 ```
+*Alternatively, deploy the JAR to your Maven repository or reference it as a local file.*
 ```bash
 mvn install:install-file -Dfile=bin/Metadata.jar -DgroupId=com.brandongcobb -DartifactId=metadata -Dversion=1.0.0 -Dpackaging=jar
 ```
-*Alternatively, deploy the JAR to your Maven repository or reference it as a local file.*
-
 - **If you're using Gradle**:
 - **If not using a build system**, include the JAR directly in your classpath.
 
