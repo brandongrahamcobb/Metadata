@@ -12,12 +12,14 @@ public class Metadata {
     public static final MetadataType<Integer> INTEGER = new MetadataInteger();
     public static final MetadataType<Double> DOUBLE = new MetadataDouble();
     public static final MetadataType<Float> FLOAT = new MetadataFloat();
+    public static final MetadataType<Long> LONG = new MetadataLong();
     public static final MetadataType<Boolean> BOOLEAN = new MetadataBoolean();
     public static final MetadataType<Object> ANY = new MetadataAny();
     public static final MetadataType<Map<String, Object>> MAP = new MetadataMap<>(STRING, ANY);;
     public static final MetadataType<List<String>> LIST_STRING = new MetadataList<>(STRING);
     public static final MetadataType<List<Integer>> LIST_INTEGER = new MetadataList<>(INTEGER);
     public static final MetadataType<List<Boolean>> LIST_BOOLEAN = new MetadataList<>(BOOLEAN);
+    public static final MetadataType<List<Map<String, Object>>> LIST_MAP = new MetadataList<>(MAP);
     
     
     public static <K, V> Map<K, V> mapOf(Object... entries) {
