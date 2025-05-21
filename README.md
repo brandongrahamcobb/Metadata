@@ -62,6 +62,13 @@ import com.brandongcobb.metadata.*;
 ```
 Create and store metadata:
 ```java
+private static final MetadataType<String> STRING = new MetadataString();
+private static final MetadataType<Integer> INTEGER = new MetadataInteger();
+private static final MetadataType<Double> DOUBLE = new MetadataDouble();
+private static final MetadataType<Float> FLOAT = new MetadataFloat();
+private static final MetadataType<Boolean> BOOLEAN = new MetadataBoolean();
+private static final MetadataType<Map<String, Object>> MAP = new MetadataMap();
+private static final MetadataType<List<String>> LIST = new MetadataList(STRING);
 MetadataContainer container = new MetadataContainer();
 MetadataKey<String> key = new MetadataKey<>("example_key", new MetadataString());
 container.put(key, "Sample Data");
