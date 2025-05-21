@@ -28,9 +28,14 @@ public class Metadata {
     public static final MetadataType<Integer> INTEGER = new MetadataInteger();
     public static final MetadataType<Double> DOUBLE = new MetadataDouble();
     public static final MetadataType<Float> FLOAT = new MetadataFloat();
+    public static final MetadataType<Long> LONG = new MetadataLong();
     public static final MetadataType<Boolean> BOOLEAN = new MetadataBoolean();
-    public static final MetadataType<Map<String, Object>> MAP = new MetadataMap();
-    public static final MetadataType<List<String>> LIST = new MetadataList(STRING);
+    public static final MetadataType<Object> ANY = new MetadataAny();
+    public static final MetadataType<Map<String, Object>> MAP = new MetadataMap<>(STRING, ANY);;
+    public static final MetadataType<List<String>> LIST_STRING = new MetadataList<>(STRING);
+    public static final MetadataType<List<Integer>> LIST_INTEGER = new MetadataList<>(INTEGER);
+    public static final MetadataType<List<Boolean>> LIST_BOOLEAN = new MetadataList<>(BOOLEAN);
+    public static final MetadataType<List<Map<String, Object>>> LIST_MAP = new MetadataList<>(MAP);
 }
 ```
 
@@ -53,23 +58,24 @@ Compile and package into a JAR. If your consuming project targets an older Java 
 
 ```bash
 Compile against a specific Java release (e.g. Java 8),
-javac --release 8 -d out/ src/com/brandongcobb/metadata/.java
+javac --release 8 -d out/ src/main/java/com/brandongcobb/metadata/.java
 
 Package classes into metadata-1.0.0.jar,
-jar cf metadata-1.0.0.jar -C out/ com/
+jar cf metadata-1.0.0.jar -C out/ main/
 ```
 
 This ensures the bytecode is compatible with the specified target release.
 
 Add the JAR to Your Project,
-,
+```bash
+cp metadata-1.0.0.jar /path/to/your/project/lib
 
 • Maven
 Place metadata-1.0.0.jar under a lib/ directory in your project root.,
 Install it into your local Maven repository:,
 
 ```bash
-mvn install:install-file -Dfile=lib/metadata-1.0.0.jar -DgroupId=com.brandongcobb -DartifactId=metadata -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=path/to/your/project/lib/metadata-1.0.0.jar -DgroupId=com.brandongcobb -DartifactId=metadata -Dversion=1.0.0 -Dpackaging=jar
 ```
 
 Add to your pom.xml:,
@@ -132,7 +138,7 @@ public class MixedMetadataExample {
 
         MetadataKey<Integer> scoreKey     = new MetadataKey<>("score", Metadata.INTEGER);
         MetadataKey<Boolean> activeKey    = new MetadataKey<>("active", Metadata.BOOLEAN);
-        MetadataKey<List<String>> tagsKey = new MetadataKey<>("tags", Metadata.LIST);
+        MetadataKey<List<String>> tagsKey = new MetadataKey<>("tags", Metadata.LIST_STRING);
 
         container.put(scoreKey, 42);
         container.put(activeKey, true);
