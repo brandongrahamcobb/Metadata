@@ -21,6 +21,8 @@ package com.brandongcobb.metadata;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 public class MetadataContainer {
 
@@ -38,4 +40,21 @@ public class MetadataContainer {
     public boolean contains(MetadataKey<?> key) {
         return metadata.containsKey(key);
     }
+
+    public Set<Map.Entry<MetadataKey<?>, Object>> entrySet() {
+        Map<MetadataKey<?>, Object> unwrapped = new LinkedHashMap<>();
+        for (Map.Entry<MetadataKey<?>, MetadataHolder<?>> entry : metadata.entrySet()) {
+            unwrapped.put(entry.getKey(), entry.getValue().getValue());
+        }
+        return unwrapped.entrySet();
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> result = new LinkedHashMap<>();
+        for (Map.Entry<MetadataKey<?>, MetadataHolder<?>> entry : metadata.entrySet()) {
+            result.put(entry.getKey().getName(), entry.getValue().getValue());
+        }
+        return result;
+    }
 }
+
