@@ -22,8 +22,8 @@ import java.util.Objects;
 
  public final class MetadataKey<T> {
 
-    private final String name;
-    private final MetadataType<?> type;
+    public final String name;
+    public final MetadataType<?> type;
 
     public MetadataKey(String name, MetadataType<?> type) {
         this.name = name;

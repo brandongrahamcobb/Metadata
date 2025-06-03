@@ -23,10 +23,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
-public class MetadataContainer {
+public class MetadataContainer implements MetadataType<MetadataContainer> {
 
     private final Map<MetadataKey<?>, MetadataHolder<?>> metadata = new HashMap<>();
+
+    @Override
+    public Class<MetadataContainer> getType() {
+        return MetadataContainer.class;
+    }
 
     public <T> void put(MetadataKey<T> key, T value) {
         metadata.put(key, new MetadataHolder<>(key, value));
@@ -35,6 +41,11 @@ public class MetadataContainer {
     public <T> T get(MetadataKey<T> key) {
         MetadataHolder<T> holder = (MetadataHolder<T>) metadata.get(key);
         return holder != null ? holder.getValue() : null;
+    }
+
+    public <T> T getOrDefault(MetadataKey<T> key, T defaultValue) {
+        MetadataHolder<T> holder = (MetadataHolder<T>) metadata.get(key);
+        return holder != null ? holder.getValue() : defaultValue;
     }
 
     public boolean contains(MetadataKey<?> key) {
@@ -55,6 +66,10 @@ public class MetadataContainer {
             result.put(entry.getKey().getName(), entry.getValue().getValue());
         }
         return result;
+    }
+
+    public CompletableFuture<MetadataContainer> completeGetContainer() {
+        return CompletableFuture.completedFuture(this);
     }
 }
 
