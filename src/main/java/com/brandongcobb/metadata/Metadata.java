@@ -28,6 +28,7 @@ public class Metadata {
     public static final MetadataType<List<Boolean>> LIST_BOOLEAN = new MetadataList<>(BOOLEAN);
     public static final MetadataType<List<Map<String, Object>>> LIST_MAP = new MetadataList<>(MAP);
     public static final MetadataType<MetadataContainer> METADATA = new MetadataContainer();
+    public static final MetadataType<byte[]> BYTES = new MetadataBytes();
 
     /**
      * Creates a map from a sequence of key-value pairs.
