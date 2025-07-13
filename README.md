@@ -3,6 +3,8 @@
 This package provides a set of classes and interfaces to manage, store, and interact with metadata within your application. It allows for flexible, typed key-value pair storage, ensuring type safety and easy retrieval of metadata.
 
 ---
+![Metadata](resources/pictures/Metadata.svg)
+---
 
 ## How It Works
 
@@ -24,18 +26,20 @@ import java.util.Map;
 
 public class Metadata {
 
-    public static final MetadataType<String> STRING = new MetadataString();
-    public static final MetadataType<Integer> INTEGER = new MetadataInteger();
+    public static final MetadataType<Object> ANY = new MetadataAny();
+    public static final MetadataType<Boolean> BOOLEAN = new MetadataBoolean();
+    public static final MetadataType<byte[]> BYTES = new MetadataBytes();
     public static final MetadataType<Double> DOUBLE = new MetadataDouble();
     public static final MetadataType<Float> FLOAT = new MetadataFloat();
+    public static final MetadataType<Integer> INTEGER = new MetadataInteger();
     public static final MetadataType<Long> LONG = new MetadataLong();
-    public static final MetadataType<Boolean> BOOLEAN = new MetadataBoolean();
-    public static final MetadataType<Object> ANY = new MetadataAny();
-    public static final MetadataType<Map<String, Object>> MAP = new MetadataMap<>(STRING, ANY);;
-    public static final MetadataType<List<String>> LIST_STRING = new MetadataList<>(STRING);
-    public static final MetadataType<List<Integer>> LIST_INTEGER = new MetadataList<>(INTEGER);
     public static final MetadataType<List<Boolean>> LIST_BOOLEAN = new MetadataList<>(BOOLEAN);
+    public static final MetadataType<List<Integer>> LIST_INTEGER = new MetadataList<>(INTEGER);
     public static final MetadataType<List<Map<String, Object>>> LIST_MAP = new MetadataList<>(MAP);
+    public static final MetadataType<List<String>> LIST_STRING = new MetadataList<>(STRING);
+    public static final MetadataType<Map<String, Object>> MAP = new MetadataMap<>(STRING, ANY);
+    public static final MetadataType<MetadataContainer> METADATA = new MetadataContainer();
+    public static final MetadataType<String> STRING = new MetadataString();
 }
 ```
 
@@ -155,9 +159,3 @@ public class MixedMetadataExample {
 
 Summary,
 This metadata package provides a flexible, type-safe approach to managing metadata within applications. By defining keys with specific types (exposed via the Metadata helper class), it reduces boilerplate and runtime errors.
-
-Get started today:
-
-Build the JAR (with --release if needed).,
-Install it into your local repository or add it to your classpath.,
-Define keys with Metadata.STRING, Metadata.INTEGER, etc., and store/retrieve metadata with ease.,
